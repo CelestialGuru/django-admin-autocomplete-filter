@@ -1,7 +1,6 @@
 from django.contrib.admin.widgets import AutocompleteSelect as Base
 from django import forms
 from django.contrib import admin
-from django.contrib.admin.utils import lookup_spawns_duplicates
 from django.db.models.fields.related import ForeignObjectRel
 from django.db.models.constants import LOOKUP_SEP  # this is '__'
 from django.db.models.fields.related_descriptors import ReverseManyToOneDescriptor, ManyToManyDescriptor
@@ -66,7 +65,7 @@ class AutocompleteFilter(admin.SimpleListFilter):
             required=False,
         )
 
-        self.may_have_duplicates = lookup_spawns_duplicates(model_admin.model._meta, self.parameter_name)
+        self.may_have_duplicates = admin.util.lookup_spawns_duplicates(model_admin.model._meta, self.parameter_name)
         self._add_media(model_admin, widget)
 
         attrs = self.widget_attrs.copy()
